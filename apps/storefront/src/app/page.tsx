@@ -15,6 +15,7 @@ export default function Store(): JSX.Element {
         Store <br />
         <span>Kitchen Sink</span>
       </h1>
+      <h2 className="text-red-700 bg-red-300 italic"> Hello from tailwind</h2>
       <CounterButton />
       <p className="description">
         Built With{" "}

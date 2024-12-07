@@ -1,9 +1,25 @@
-import { log } from "@repo/logger";
-import { createServer } from "./server";
+import express from 'express'
+import http from 'http'
+import {Server, WebSocket } from 'ws'
 
-const port = process.env.PORT || 5001;
-const server = createServer();
+const app = express()
+const server = http.createServer(app)
 
-server.listen(port, () => {
-  log(`api running on ${port}`);
-});
+const wss = new Server({server})
+
+app.get("/ping", (_, res) => {
+  res.json("pong")
+})
+
+wss.on("connection", (ws: WebSocket) => {
+  ws.on("message", (message: string) => {
+    console.log(message.toString())
+  })
+})
+
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log(`server listening on port ${PORT}`)
+})
+
